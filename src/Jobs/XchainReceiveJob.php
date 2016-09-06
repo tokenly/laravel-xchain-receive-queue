@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Exception;
 
-class XchainReceive implements ShouldQueue
+class XchainReceiveJob implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,6 +20,7 @@ class XchainReceive implements ShouldQueue
     }
 
     public function handle() {
+        // \Illuminate\Support\Facades\Log::debug("\$this->payload=".json_encode($this->payload, 192));
         $event = $this->payload['event'];
         if (!$event) { throw new Exception("undefined event for payload ".json_encode($this->payload, 192), 1); }
 
